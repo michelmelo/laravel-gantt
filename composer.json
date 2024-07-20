@@ -1,0 +1,19 @@
+{
+    "name": "michelmelo/laravel-gantt",
+    "description": "Laravel package to display items within a Gantt Chart.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michel Melo",
+            "email": "eu@michelmelo.pt"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "MichelMelo\\LaravelGantt\\": "src/"
+        }
+    }
+}
