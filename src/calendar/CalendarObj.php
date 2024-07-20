@@ -2,134 +2,183 @@
 
 namespace MichelMelo\LaravelGantt\Calendar;
 
-class CalendarObj {
-    
-    var $yearINT;
-    var $monthINT;
-    var $dayINT;
-    var $hourINT;
-    var $minuteINT;
-    var $secondINT;
-    var $timestamp = 0;
-    
-    function __construct($year=false, $month=1, $day=1, $hour=0, $minute=0, $second=0) {
-        
-        if(!$year)  $year   = date('Y');
-        if(!$month) $month  = date('m');
-        if(!$day)   $day    = date('d');
-        
+class CalendarObj
+{
+    public $yearINT;
+    public $monthINT;
+    public $dayINT;
+    public $hourINT;
+    public $minuteINT;
+    public $secondINT;
+    public $timestamp = 0;
+
+    public function __construct($year=false, $month=1, $day=1, $hour=0, $minute=0, $second=0)
+    {
+        if (! $year) {
+            $year   = date('Y');
+        }
+        if (! $month) {
+            $month  = date('m');
+        }
+        if (! $day) {
+            $day    = date('d');
+        }
+
         $this->yearINT   = intval($year);
         $this->monthINT  = intval($month);
         $this->dayINT    = intval($day);
         $this->hourINT   = intval($hour);
         $this->minuteINT = intval($minute);
         $this->secondINT = intval($second);
-        
+
         // convert this to timestamp
         $this->timestamp = mktime($hour, $minute, $second, $month, $day, $year);
     }
-    
-    function year($year=false) {
-        if(!$year) $year = $this->yearINT;
+
+    public function year($year=false)
+    {
+        if (! $year) {
+            $year = $this->yearINT;
+        }
+
         return new CalendarYear($year, 1, 1, 0, 0, 0);
     }
-    
-    function month($month=false) {
-        if(!$month) $month = $this->monthINT;
+
+    public function month($month=false)
+    {
+        if (! $month) {
+            $month = $this->monthINT;
+        }
+
         return new CalendarMonth($this->yearINT, $month, 1, 0, 0, 0);
     }
-    
-    function day($day=false) {
-        if(!$day) $day = $this->dayINT;
+
+    public function day($day=false)
+    {
+        if (! $day) {
+            $day = $this->dayINT;
+        }
+
         return new CalendarDay($this->yearINT, $this->monthINT, $day, 0, 0, 0);
     }
-    
-    function hour($hour=false) {
-        if(!$hour) $hour = $this->hourINT;
+
+    public function hour($hour=false)
+    {
+        if (! $hour) {
+            $hour = $this->hourINT;
+        }
+
         return new CalendarHour($this->yearINT, $this->monthINT, $this->dayINT, $hour, 0, 0);
     }
-    
-    function minute($minute=false) {
-        if(!$minute) $minute = $this->minuteINT;
+
+    public function minute($minute=false)
+    {
+        if (! $minute) {
+            $minute = $this->minuteINT;
+        }
+
         return new CalendarMinute($this->yearINT, $this->monthINT, $this->dayINT, $this->hourINT, $minute, 0);
     }
-    
-    function second($second=false) {
-        if(!$second) $second = $this->secondINT;
+
+    public function second($second=false)
+    {
+        if (! $second) {
+            $second = $this->secondINT;
+        }
+
         return new CalendarSecond($this->yearINT, $this->monthINT, $this->dayINT, $this->hourINT, $this->minuteINT, $second);
     }
-    
-    function timestamp() {
+
+    public function timestamp()
+    {
         return $this->timestamp;
     }
-    
-    function __toString() {
+
+    public function __toString()
+    {
         return date('Y-m-d H:i:s', $this->timestamp);
     }
-    
-    function format($format) {
+
+    public function format($format)
+    {
         return date($format, $this->timestamp);
     }
-    
-    function iso() {
+
+    public function iso()
+    {
         return date(DATE_ISO, $this->timestamp);
     }
-    
-    function cookie() {
+
+    public function cookie()
+    {
         return date(DATE_COOKIE, $this->timestamp);
     }
-    
-    function rss() {
+
+    public function rss()
+    {
         return date(DATE_RSS, $this->timestamp);
     }
-    
-    function atom() {
+
+    public function atom()
+    {
         return date(DATE_ATOM, $this->timestamp);
     }
-    
-    function mysql() {
+
+    public function mysql()
+    {
         return date('Y-m-d H:i:s', $this->timestamp);
     }
-    
-    function time() {
+
+    public function time()
+    {
         return strftime('%T', $this->timestamp);
     }
-    
-    function ampm() {
+
+    public function ampm()
+    {
         return strftime('%p', $this->timestamp);
     }
-    
-    function modify($string) {
-        $ts = (is_int($string)) ? $this->timestamp+$string : strtotime($string, $this->timestamp);
-        
+
+    public function modify($string)
+    {
+        $ts = (is_int($string)) ? $this->timestamp + $string : strtotime($string, $this->timestamp);
+
         list($year, $month, $day, $hour, $minute, $second) = explode('-', date('Y-m-d-H-i-s', $ts));
+
         return new CalendarDay($year, $month, $day, $hour, $minute, $second);
     }
-    
-    function plus($string) {
+
+    public function plus($string)
+    {
         $modifier = (is_int($string)) ? $string : '+' . $string;
+
         return $this->modify($modifier);
     }
-    
-    function add($string) {
+
+    public function add($string)
+    {
         return $this->plus($string);
     }
-    
-    function minus($string) {
+
+    public function minus($string)
+    {
         $modifier = (is_int($string)) ? -$string : '-' . $string;
+
         return $this->modify($modifier);
     }
-    
-    function sub($string) {
+
+    public function sub($string)
+    {
         return $this->minus($string);
     }
-    
-    function dmy() {
+
+    public function dmy()
+    {
         return $this->format('d.m.Y');
     }
-    
-    function padded() {
-        return str_pad($this->int(),2,'0',STR_PAD_LEFT);
+
+    public function padded()
+    {
+        return str_pad($this->int(), 2, '0', STR_PAD_LEFT);
     }
-    
 }

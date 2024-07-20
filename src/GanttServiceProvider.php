@@ -14,7 +14,7 @@ class GanttServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/assets/css' => public_path('vendor/michelmelo/gantt/css'),
+            __DIR__ . '/assets/css' => public_path('vendor/michelmelo/gantt/css'),
         ], 'gantt');
     }
 

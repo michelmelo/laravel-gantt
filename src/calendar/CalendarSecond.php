@@ -2,18 +2,20 @@
 
 namespace MichelMelo\LaravelGantt\Calendar;
 
-class CalendarSecond extends CalendarObj {
-    
-    function int() {
+class CalendarSecond extends CalendarObj
+{
+    public function int()
+    {
         return $this->secondINT;
     }
-    
-    function next() {
+
+    public function next()
+    {
         return $this->plus('1second')->second();
     }
-    
-    function prev() {
+
+    public function prev()
+    {
         return $this->minus('1second')->second();
     }
-    
 }

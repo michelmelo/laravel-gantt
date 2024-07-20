@@ -2,32 +2,33 @@
 
 namespace MichelMelo\LaravelGantt\Calendar;
 
-class CalendarMinute extends CalendarObj {
-    
-    function int() {
+class CalendarMinute extends CalendarObj
+{
+    public function int()
+    {
         return $this->minuteINT;
     }
-    
-    function seconds() {
-        
+
+    public function seconds()
+    {
         $obj   = $this;
-        $array = array();
-        
-        while($obj->minuteINT == $this->minuteINT) {
+        $array = [];
+
+        while ($obj->minuteINT == $this->minuteINT) {
             $array[] = $obj;
-            $obj = $obj->plus('1second')->second();
+            $obj     = $obj->plus('1second')->second();
         }
-        
+
         return new CalendarIterator($array);
-        
     }
-    
-    function next() {
+
+    public function next()
+    {
         return $this->plus('1minute')->minute();
     }
-    
-    function prev() {
+
+    public function prev()
+    {
         return $this->minus('1minute')->minute();
     }
-    
 }
